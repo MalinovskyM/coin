@@ -1,8 +1,8 @@
 <?php
 
-require ('../testcoin/controller/Transaction.php');
-require ('../testcoin/controller/Block.php');
-require ('../testcoin/controller/BlockChain.php');
+require ('../coin/controller/Transaction.php');
+require ('../coin/controller/Block.php');
+require ('../coin/controller/BlockChain.php');
 
 
 $trx = new Transaction();
@@ -49,11 +49,11 @@ $block = new Block();
 $block->setId(3);
 
 $trx = new Transaction();
-$trx->setId(3);
+$trx->setId(4);
 $trx->setType($trx::EMISSION);
 $trx->setTo('bob');
 $trx->setAmount(10);
-$trx->setSignature('68993bb24e893f2a4498236b5dd0acb0');
+$trx->setSignature('96d2ab09ffe31192f7e8f6b7bba54ed4');
 
 $block->addTransaction($trx);
 
@@ -63,14 +63,28 @@ $blockChain->addBlock(1, $block);
 $block = new Block();
 $block->setId(4);
 $trx = new Transaction();
-$trx->setId(4);
+$trx->setId(5);
 $trx->setType($trx::EMISSION);
 $trx->setTo('bob');
 $trx->setAmount(10);
-$trx->setSignature('96d2ab09ffe31192f7e8f6b7bba54ed4');
+$trx->setSignature('4ece284a88455b0ee71df50de5f4b1d0');
 $block->addTransaction($trx);
 $blockChain->addBlock(2, $block);
 
+$block = new Block();
+$block->setId(5);
+$trx = new Transaction();
+$trx->setId(6);
+$trx->setType($trx::TRANSFER);
+$trx->setFrom('karl');
+$trx->setTo('bob');
+$trx->setAmount(120);
+$trx->setSignature('68429cc84d905496a27940d026365482');
+$block->addTransaction($trx);
+$blockChain->addBlock(1, $block);
+
 //print_r($blockChain->getBlockChain());
 
-print_r($blockChain->getBalance('bob'));
+echo 'bob: '. $blockChain->getBalance('bob'). "\n";
+echo 'alisa: '. $blockChain->getBalance('alisa'). "\n";
+echo 'karl: '. $blockChain->getBalance('karl'). "\n";
